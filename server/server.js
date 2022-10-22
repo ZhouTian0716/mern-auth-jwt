@@ -2,9 +2,22 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 3500;
+const { logger } = require("./middleware/logger");
+const errorHandler = require("./middleware/errorHandler");
+// Third party middleware
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 
-// public folder is set to be the starting point
-app.use("/", express.static(path.join(__dirname, "/public")));
+// 👻 Middleware
+app.use(logger);
+app.use(express.json());
+app.use(cookieParser());
+// 👻 Cors Options
+app.use(cors(corsOptions));
+
+// telling server where to find static files
+app.use("/", express.static(path.join(__dirname, "public")));
 
 // Define your routes
 app.use("/", require("./routes/root"));
@@ -20,5 +33,8 @@ app.all("*", (req, res) => {
     res.type("txt").send("404 Not Found");
   }
 });
+
+// 👻 Middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
