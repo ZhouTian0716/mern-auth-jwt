@@ -15,7 +15,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
-      keepUnusedDataFor: 5,
+      // 笔记：keepUnusedDataFor: 5, 设定保留时间， 单位秒， default 60 seconds
       transformResponse: (responseData) => {
         const loadedUsers = responseData.map((user) => {
           user.id = user._id;
