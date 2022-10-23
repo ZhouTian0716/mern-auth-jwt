@@ -46,6 +46,7 @@
   color: var(--COLOR);
   display: grid;
   place-content: center;
+  cursor: pointer;
 }
 
 .icon-button:hover,
