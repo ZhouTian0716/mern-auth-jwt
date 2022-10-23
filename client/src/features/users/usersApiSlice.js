@@ -9,6 +9,7 @@ const initialState = usersAdapter.getInitialState();
 // 笔记：这里的query要匹配server里的users route
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // 😜CRUD: GET
     getUsers: builder.query({
       query: () => "/api/users",
       validateStatus: (response, result) => {
@@ -31,11 +32,46 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: "User", id: "LIST" }];
       },
     }),
+    // 😜CRUD: CREATE
+    addNewUser: builder.mutation({
+      query: (initialUserData) => ({
+        url: "/api/users",
+        method: "POST",
+        body: {
+          ...initialUserData,
+        },
+      }),
+      invalidatesTags: [{ type: "User", id: "LIST" }],
+    }),
+    // 😜CRUD: UPDATE
+    updateUser: builder.mutation({
+      query: (initialUserData) => ({
+        url: "/api/users",
+        method: "PATCH",
+        body: {
+          ...initialUserData,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
+    }),
+    // 😜CRUD: DELETE
+    deleteUser: builder.mutation({
+      query: ({ id }) => ({
+        url: `/api/users`,
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = usersApiSlice;
-
+export const {
+  useGetUsersQuery,
+  useAddNewUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = usersApiSlice;
 
 // 🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️
 

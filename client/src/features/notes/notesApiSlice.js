@@ -1,7 +1,6 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
 
-
 // 实现了排序
 const notesAdapter = createEntityAdapter({
   sortComparer: (a, b) =>
@@ -12,6 +11,7 @@ const initialState = notesAdapter.getInitialState();
 
 export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // 😜CRUD: GET
     getNotes: builder.query({
       query: () => "/api/notes",
       validateStatus: (response, result) => {
@@ -34,10 +34,46 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: "Note", id: "LIST" }];
       },
     }),
+    // 😜CRUD: CREATE
+    addNewNote: builder.mutation({
+      query: (initialNote) => ({
+        url: "/api/notes",
+        method: "POST",
+        body: {
+          ...initialNote,
+        },
+      }),
+      invalidatesTags: [{ type: "Note", id: "LIST" }],
+    }),
+    // 😜CRUD: UPDATE
+    updateNote: builder.mutation({
+      query: (initialNote) => ({
+        url: "/api/notes",
+        method: "PATCH",
+        body: {
+          ...initialNote,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Note", id: arg.id }],
+    }),
+    // 😜CRUD: DELETE
+    deleteNote: builder.mutation({
+      query: ({ id }) => ({
+        url: `/api/notes`,
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Note", id: arg.id }],
+    }),
   }),
 });
 
-export const { useGetNotesQuery } = notesApiSlice;
+export const {
+  useGetNotesQuery,
+  useAddNewNoteMutation,
+  useUpdateNoteMutation,
+  useDeleteNoteMutation,
+} = notesApiSlice
 
 // returns the query result object
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();
