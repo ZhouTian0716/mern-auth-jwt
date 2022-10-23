@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
+const ProjectDbName = "techNotes";
+
 const mongoConnection = async () => {
-  const ProjectDbName = "techNotes";
   const dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_USER_PASSWORD}@cluster0.oomzs.mongodb.net/${ProjectDbName}?retryWrites=true&w=majority`;
   try {
     await mongoose.connect(dbUrl);
@@ -10,4 +11,4 @@ const mongoConnection = async () => {
   }
 };
 
-module.exports = mongoConnection;
+module.exports = {mongoConnection, ProjectDbName};

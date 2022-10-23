@@ -12,9 +12,9 @@ const corsOptions = require("./config/corsOptions");
 
 // 👻 DatabaseConnection  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 const mongoose = require("mongoose");
-const mongoConnection = require("./config/mongoConnection");
+const { mongoConnection, ProjectDbName } = require("./config/mongoConnection");
 const { logEvents } = require("./middleware/logger");
-mongoConnection();
+mongoConnection(); // This excutes the connection
 // 👻 DatabaseConnection  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 // 👻 Middleware
@@ -27,8 +27,9 @@ app.use(cors(corsOptions));
 // telling server where to find static files
 app.use("/", express.static(path.join(__dirname, "public")));
 
-// Define your routes
+// 👻 Define your routes
 app.use("/", require("./routes/root"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 // Setting Server side response for 404 situation
 app.all("*", (req, res) => {
@@ -48,6 +49,7 @@ app.use(errorHandler);
 // 👻 DatabaseConnection  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
+  console.log(`Current Mongo Database Name is: ${ProjectDbName}`);
   app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
 });
 
