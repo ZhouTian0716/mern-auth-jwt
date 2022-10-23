@@ -30,6 +30,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 // 👻 Define your routes
 app.use("/", require("./routes/root"));
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/notes", require("./routes/noteRoutes"));
 
 // Setting Server side response for 404 situation
 app.all("*", (req, res) => {
