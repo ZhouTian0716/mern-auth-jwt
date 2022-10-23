@@ -30,6 +30,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
 // @desc Create new note
 // @route POST /notes
 // @access Private
+// 😜😜😜 这里的user 是要传递user的mongo ID
 const createNewNote = asyncHandler(async (req, res) => {
   const { user, title, text } = req.body;
 
@@ -59,6 +60,7 @@ const createNewNote = asyncHandler(async (req, res) => {
 // @desc Update a note
 // @route PATCH /notes
 // @access Private
+// 😜😜😜 这里的user 是要传递user的mongo ID，id是传递note的mongo ID
 const updateNote = asyncHandler(async (req, res) => {
   const { id, user, title, text, completed } = req.body;
 
