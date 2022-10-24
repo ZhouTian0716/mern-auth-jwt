@@ -13,7 +13,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // 😜CRUD: GET
     getNotes: builder.query({
-      query: () => "/api/notes",
+      query: () => "/notes",
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
@@ -36,7 +36,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     // 😜CRUD: CREATE
     addNewNote: builder.mutation({
       query: (initialNote) => ({
-        url: "/api/notes",
+        url: "/notes",
         method: "POST",
         body: {
           ...initialNote,
@@ -47,7 +47,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     // 😜CRUD: UPDATE
     updateNote: builder.mutation({
       query: (initialNote) => ({
-        url: "/api/notes",
+        url: "/notes",
         method: "PATCH",
         body: {
           ...initialNote,
@@ -58,7 +58,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     // 😜CRUD: DELETE
     deleteNote: builder.mutation({
       query: ({ id }) => ({
-        url: `/api/notes`,
+        url: `/notes`,
         method: "DELETE",
         body: { id },
       }),

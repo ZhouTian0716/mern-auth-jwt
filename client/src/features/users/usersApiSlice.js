@@ -11,7 +11,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // 😜CRUD: GET
     getUsers: builder.query({
-      query: () => "/api/users",
+      query: () => "/users",
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
@@ -35,7 +35,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     // 😜CRUD: CREATE
     addNewUser: builder.mutation({
       query: (initialUserData) => ({
-        url: "/api/users",
+        url: "/users",
         method: "POST",
         body: {
           ...initialUserData,
@@ -46,7 +46,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     // 😜CRUD: UPDATE
     updateUser: builder.mutation({
       query: (initialUserData) => ({
-        url: "/api/users",
+        url: "/users",
         method: "PATCH",
         body: {
           ...initialUserData,
@@ -57,7 +57,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     // 😜CRUD: DELETE
     deleteUser: builder.mutation({
       query: ({ id }) => ({
-        url: `/api/users`,
+        url: `/users`,
         method: "DELETE",
         body: { id },
       }),
