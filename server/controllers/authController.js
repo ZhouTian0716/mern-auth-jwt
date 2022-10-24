@@ -31,7 +31,8 @@ const login = asyncHandler(async (req, res) => {
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "20s" }
+    // 这个定义了登录login有效时间，有效期可以查看user相关资料
+    { expiresIn: "15m" }
   );
 
   const refreshToken = jwt.sign(
@@ -50,6 +51,7 @@ const login = asyncHandler(async (req, res) => {
   });
 
   // Send accessToken containing username and roles
+  // 返回accessToken
   res.json({ accessToken });
 });
 
