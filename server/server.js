@@ -28,9 +28,11 @@ app.use(cors(corsOptions));
 app.use("/", express.static(path.join(__dirname, "public")));
 
 // 👻 Define your routes
+// 下次不用api前缀， 因为 server和client在不同port
 app.use("/", require("./routes/root"));
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/notes", require("./routes/noteRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
+app.use("/users", require("./routes/userRoutes"));
+app.use("/notes", require("./routes/noteRoutes"));
 
 // Setting Server side response for 404 situation
 app.all("*", (req, res) => {
