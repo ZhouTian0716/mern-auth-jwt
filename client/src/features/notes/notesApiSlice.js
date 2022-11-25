@@ -92,3 +92,5 @@ export const {
 } = notesAdapter.getSelectors(
   (state) => selectNotesData(state) ?? initialState
 );
+
+

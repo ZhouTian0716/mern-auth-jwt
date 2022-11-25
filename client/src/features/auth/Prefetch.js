@@ -12,6 +12,7 @@ const Prefetch = () => {
     const notes = store.dispatch(notesApiSlice.endpoints.getNotes.initiate());
     const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
+    // Zt Note: if go to public pages, clean up because component unmount
     return () => {
       console.log("unsubscribing");
       notes.unsubscribe();

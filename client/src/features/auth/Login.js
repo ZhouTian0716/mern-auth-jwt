@@ -47,6 +47,7 @@ const Login = () => {
       } else {
         setErrMsg(err.data?.message);
       }
+      // For accessibility reasons
       errRef.current.focus();
     }
   };
@@ -66,6 +67,8 @@ const Login = () => {
         <h1>Employee Login</h1>
       </header>
       <main className="login">
+        {/* aria-live="assertive" */}
+        {/* For accessibility */}
         <p ref={errRef} className={errClass} aria-live="assertive">
           {errMsg}
         </p>

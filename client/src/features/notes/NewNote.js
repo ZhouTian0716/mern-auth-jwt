@@ -3,6 +3,7 @@ import { selectAllUsers } from "../users/usersApiSlice";
 import NewNoteForm from "./NewNoteForm";
 
 const NewNote = () => {
+  //memoized selector
   const users = useSelector(selectAllUsers);
 
   if (!users?.length) return <p>Not Currently Available</p>;

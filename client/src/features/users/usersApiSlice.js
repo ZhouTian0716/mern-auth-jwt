@@ -1,12 +1,12 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
 
-//
+// Purpose of this is to use normalized data structure
 const usersAdapter = createEntityAdapter({});
-
 const initialState = usersAdapter.getInitialState();
 
 // 笔记：这里的query要匹配server里的users route
+// 目的：这里的提供generates hooks 供 component使用。
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // 😜CRUD: GET
@@ -15,12 +15,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
+   
       // 笔记：keepUnusedDataFor: 5, 设定保留时间， 单位秒， default 60 seconds
       transformResponse: (responseData) => {
         const loadedUsers = responseData.map((user) => {
           user.id = user._id;
           return user;
         });
+        // console.log(usersAdapter.setAll(initialState, loadedUsers));
         return usersAdapter.setAll(initialState, loadedUsers);
       },
       providesTags: (result, error, arg) => {

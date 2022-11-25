@@ -14,9 +14,12 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
-
+// export for store
 export default authSlice.reducer;
 
+// export for component to useDispatch
+export const { setCredentials, logOut } = authSlice.actions;
+
+// export for component to useSelector
 // 笔记，state.auth here auth is the name in line 4
 export const selectCurrentToken = (state) => state.auth.token;

@@ -12,7 +12,7 @@ const corsOptions = require("./config/corsOptions");
 
 // 👻 DatabaseConnection  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 const mongoose = require("mongoose");
-const { mongoConnection, ProjectDbName } = require("./config/mongoConnection");
+const { mongoConnection } = require("./config/mongoConnection");
 const { logEvents } = require("./middleware/logger");
 mongoConnection(); // This excutes the connection
 // 👻 DatabaseConnection  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
@@ -51,8 +51,6 @@ app.use(errorHandler);
 
 // 👻 DatabaseConnection  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 mongoose.connection.once("open", () => {
-  console.log("Connected to MongoDB");
-  console.log(`Current Mongo Database Name is: ${ProjectDbName}`);
   app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
 });
 

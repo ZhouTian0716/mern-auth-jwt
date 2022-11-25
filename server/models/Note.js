@@ -27,6 +27,8 @@ const noteSchema = new mongoose.Schema(
   }
 );
 
+// This is a project feature.
+// This auto creates a collection call 'counter'
 noteSchema.plugin(AutoIncrement, {
   inc_field: "ticket",
   id: "ticketNums",

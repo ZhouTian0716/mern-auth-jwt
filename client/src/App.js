@@ -19,6 +19,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        {/* Route index here is the default component for root */}
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
 

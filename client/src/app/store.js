@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
-// 笔记：This enable
-import { setupListeners } from "@reduxjs/toolkit/query";
-// 笔记，lesson 9 added
 import authReducer from "../features/auth/authSlice";
+// 笔记：This enable up to date data fetching
+import { setupListeners } from "@reduxjs/toolkit/query";
+
 
 export const store = configureStore({
   reducer: {

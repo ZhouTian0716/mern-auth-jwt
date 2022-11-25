@@ -3,6 +3,7 @@ import User from "./User";
 
 const UsersList = () => {
   // 笔记: This useGetUsersQuery takes in an object to enable latest info from database
+  // 这个 option object 很重要，提升用户体验
   const {
     data: users,
     isLoading,
@@ -10,6 +11,7 @@ const UsersList = () => {
     isError,
     error,
   } = useGetUsersQuery('usersList', {
+    // refetch 的间隔！！
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -25,6 +27,7 @@ const UsersList = () => {
 
   if (isSuccess) {
     const { ids } = users;
+    // console.log(users);
 
     const tableContent = ids?.length
       ? ids.map((userId) => <User key={userId} userId={userId} />)

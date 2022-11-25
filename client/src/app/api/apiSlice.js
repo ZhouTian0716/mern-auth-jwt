@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
     }
     return headers;
   },
-});
+}); 
 
 // 笔记：
 // lesson 10 added
@@ -51,6 +51,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   return result;
 };
 
+// lesson 6 starter here
 // This baseUrl is where we host our server
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
