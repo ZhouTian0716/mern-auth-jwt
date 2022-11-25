@@ -12,7 +12,7 @@ const UsersList = () => {
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery('usersList', {
+  } = useGetUsersQuery("usersList", {
     // refetch 的间隔！！
     pollingInterval: 60000,
     refetchOnFocus: true,
@@ -31,9 +31,8 @@ const UsersList = () => {
     const { ids } = users;
     // console.log(users);
 
-    const tableContent = ids?.length
-      ? ids.map((userId) => <User key={userId} userId={userId} />)
-      : null;
+    const tableContent =
+      ids?.length && ids.map((userId) => <User key={userId} userId={userId} />);
 
     content = (
       <table className="table table--users">
