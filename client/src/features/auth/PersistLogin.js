@@ -9,10 +9,12 @@ const PersistLogin = () => {
   const [persist] = usePersist();
   const token = useSelector(selectCurrentToken);
   // React 18 feature
+  // how to handle strick mode
   const effectRan = useRef(false);
 
   const [trueSuccess, setTrueSuccess] = useState(false);
 
+  // RTKQ states : isUninitialized, isLoading, isSuccess, isError, error
   const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
     useRefreshMutation();
 
@@ -32,6 +34,7 @@ const PersistLogin = () => {
         }
       };
 
+      // use refresh token to access after page refresh, losing state
       if (!token && persist) verifyRefreshToken();
     }
 

@@ -4,6 +4,8 @@ import User from "./User";
 const UsersList = () => {
   // 笔记: This useGetUsersQuery takes in an object to enable latest info from database
   // 这个 option object 很重要，提升用户体验
+  // 这里 useGetUsersQuery('usersList', {})
+  // check 'usersList' from redux dev tool
   const {
     data: users,
     isLoading,

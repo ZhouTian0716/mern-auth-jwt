@@ -23,10 +23,10 @@ export const authApiSlice = apiSlice.injectEndpoints({
           console.log(data);
           dispatch(logOut());
           // lecture at 5:36:00
-          // setTimeout(() => {
+          setTimeout(() => {
           // see what this line do
           dispatch(apiSlice.util.resetApiState());
-          // }, 1000);
+          }, 1000);
         } catch (err) {
           console.log(err);
         }
@@ -37,16 +37,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/auth/refresh",
         method: "GET",
       }),
-      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const { data } = await queryFulfilled;
-      //     console.log(data);
-      //     const { accessToken } = data;
-      //     dispatch(setCredentials({ accessToken }));
-      //   } catch (err) {
-      //     console.log(err);
-      //   }
-      // },
+      async onQueryStarted(arg, api) {
+        try {
+          const { data } = await api.queryFulfilled;
+          console.log(data);
+          const { accessToken } = data;
+          api.dispatch(setCredentials({ accessToken }));
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
   }),
 });

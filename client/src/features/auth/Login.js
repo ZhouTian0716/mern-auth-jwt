@@ -10,8 +10,8 @@ import usePersist from "../../hooks/usePersist";
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("汉");
+  const [password, setPassword] = useState("123456");
   const [errMsg, setErrMsg] = useState("");
 
   const navigate = useNavigate();

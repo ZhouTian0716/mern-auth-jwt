@@ -34,13 +34,13 @@ const login = asyncHandler(async (req, res) => {
     },
     process.env.ACCESS_TOKEN_SECRET,
     // 这个定义了登录login有效时间，有效期可以查看user相关资料
-    { expiresIn: "15s" }
+    { expiresIn: "15m" }
   );
 
   const refreshToken = jwt.sign(
     { username: foundUser.username },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: "1m" }
+    { expiresIn: "20m" }
   );
 
   // Create secure cookie with refresh token
@@ -84,7 +84,7 @@ const refresh = (req, res) => {
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "15s" }
+        { expiresIn: "15m" }
       );
 
       res.json({ accessToken });
