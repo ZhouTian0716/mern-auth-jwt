@@ -11,11 +11,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // 😜CRUD: GET
     getUsers: builder.query({
-      query: () => "/users",
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError;
-      },
-   
+      query: () => ({
+        url: "/users",
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
+
       // 笔记：keepUnusedDataFor: 5, 设定保留时间， 单位秒， default 60 seconds
       transformResponse: (responseData) => {
         const loadedUsers = responseData.map((user) => {

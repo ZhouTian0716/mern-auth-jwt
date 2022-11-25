@@ -17,8 +17,11 @@ import PersistLogin from "./features/auth/PersistLogin";
 // lesson 11
 import { ROLES } from "./config/roles";
 import RequireAuth from "./features/auth/RequireAuth";
+// lesson 12
+import useTitle from './hooks/useTitle'
 
 function App() {
+  useTitle('Dan D. Repairs')
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

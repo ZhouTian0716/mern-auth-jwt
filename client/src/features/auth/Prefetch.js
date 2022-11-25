@@ -6,20 +6,31 @@ import { Outlet } from "react-router-dom";
 
 // 使用方法：wrap the protected pages with this Prefetch component
 
+// const Prefetch = () => {
+//   useEffect(() => {
+//     console.log("subscribing");
+//     const notes = store.dispatch(notesApiSlice.endpoints.getNotes.initiate());
+//     const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
+//     return () => {
+//       console.log("unsubscribing");
+//       notes.unsubscribe();
+//       users.unsubscribe();
+//     };
+//   }, []);
+//   return <Outlet />;
+// };
+
 const Prefetch = () => {
   useEffect(() => {
-    console.log("subscribing");
-    const notes = store.dispatch(notesApiSlice.endpoints.getNotes.initiate());
-    const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
-
-    // Zt Note: if go to public pages, clean up because component unmount
-    return () => {
-      console.log("unsubscribing");
-      notes.unsubscribe();
-      users.unsubscribe();
-    };
+    store.dispatch(
+      notesApiSlice.util.prefetch("getNotes", "notesList", { force: true })
+    );
+    store.dispatch(
+      usersApiSlice.util.prefetch("getUsers", "usersList", { force: true })
+    );
   }, []);
 
   return <Outlet />;
 };
+
 export default Prefetch;
